@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sealed Wire Vault</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="mark" aria-hidden="true"></span>
+    <div>
+      <h1>Sealed Wire Vault</h1>
+      <p class="tagline">capture &rarr; seal &rarr; recompute, with the original packet pinned</p>
+    </div>
+  </div>
+  <div class="status-cluster" id="status-cluster" aria-live="polite"></div>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Sections">
+  <button class="tab is-active" role="tab" data-view="sources">Sources</button>
+  <button class="tab" role="tab" data-view="objects">Objects</button>
+  <button class="tab" role="tab" data-view="runs">Parse runs</button>
+  <button class="tab" role="tab" data-view="workers">Workers</button>
+  <button class="tab" role="tab" data-view="events">Event log</button>
+</nav>
+
+<main>
+  <div class="banner" id="banner" hidden></div>
+
+  <!-- ================= SOURCES ================= -->
+  <section class="view is-active" id="view-sources">
+    <div class="section-head">
+      <div>
+        <h2>Sources</h2>
+        <p class="hint">Fictional feeds with real on-disk bytes. A capture seals exactly what one fetch returned; withdraw never deletes sealed bytes.</p>
+      </div>
+      <button class="btn btn-quiet" id="btn-seed">Register fixtures &amp; rules</button>
+    </div>
+    <div class="grid" id="source-grid"></div>
+  </section>
+
+  <!-- ================= OBJECTS ================= -->
+  <section class="view" id="view-objects">
+    <div class="section-head">
+      <div>
+        <h2>Sealed objects</h2>
+        <p class="hint">Each object is one immutable byte stream: manifest digest identifies it, chunk list proves it, stream digest reproduces it.</p>
+      </div>
+      <div class="search">
+        <input id="object-search" placeholder="object id / manifest digest prefix" aria-label="Find object">
+        <button class="btn" id="btn-find-object">Open</button>
+      </div>
+    </div>
+    <div id="object-list" class="object-list"></div>
+    <div id="object-detail" class="detail" hidden></div>
+  </section>
+
+  <!-- ================= RUNS ================= -->
+  <section class="view" id="view-runs">
+    <div class="section-head">
+      <div>
+        <h2>Parse runs</h2>
+        <p class="hint">Every run pins object + rule version. Stop can kill the worker process; resuming continues from the last committed byte offset.</p>
+      </div>
+    </div>
+    <div class="panel" id="rule-panel"></div>
+    <div id="run-list" class="run-list"></div>
+    <div id="run-detail" class="detail" hidden></div>
+    <div id="compare-detail" class="detail" hidden></div>
+  </section>
+
+  <!-- ================= WORKERS ================= -->
+  <section class="view" id="view-workers">
+    <div class="section-head">
+      <div>
+        <h2>Worker processes</h2>
+        <p class="hint">The web server only records intent. Capture and parse run in separate OS processes you can start, stop, or kill here.</p>
+      </div>
+    </div>
+    <div class="grid grid-2" id="worker-grid"></div>
+    <div class="panel">
+      <h3>Process hygiene</h3>
+      <p class="hint small">Hard kill sends SIGKILL to the parse worker. The run stays <code>running</code> until its lease expires, then any worker resumes it from the checkpoint without duplicating records.</p>
+      <ul class="plain small" id="worker-notes"></ul>
+    </div>
+  </section>
+
+  <!-- ================= EVENTS ================= -->
+  <section class="view" id="view-events">
+    <div class="section-head">
+      <div>
+        <h2>Event log</h2>
+        <p class="hint">Append-only audit trail of every capture, seal, run, stop, damage and export.</p>
+      </div>
+      <button class="btn btn-quiet" id="btn-refresh-events">Refresh</button>
+    </div>
+    <div class="panel"><table class="table" id="event-table">
+      <thead><tr><th>time</th><th>event</th><th>entity</th><th>actor</th><th>detail</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>stdlib only · no network required for recompute</span>
+  <span id="data-dir" class="mono"></span>
+</footer>
+
+<div class="toast-wrap" id="toast-wrap" aria-live="polite"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>

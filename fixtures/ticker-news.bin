@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>ticker-news (rev 0)</title></head>
+<body>
+<header><h1>ticker-news</h1><p class="stamp">revision 0</p></header>
+<main>
+<article class="record" data-seq="1" data-rev="0">
+  <h2 id="r1">ticker-news / copper / highland</h2>
+  <p class="note">copper desk in highland reports 137 units; initial entry.</p>
+  <span class="value">137</span>
+</article>
+<article class="record" data-seq="2" data-rev="0">
+  <h2 id="r2">ticker-news / shipping / east-quay</h2>
+  <p class="note">shipping desk in east-quay reports 174 units; initial entry.</p>
+  <span class="value">174</span>
+</article>
+<article class="record" data-seq="3" data-rev="0">
+  <h2 id="r3">ticker-news / rainfall / coast</h2>
+  <p class="note">rainfall desk in coast reports 211 units; initial entry.</p>
+  <span class="value">211</span>
+</article>
+<article class="record" data-seq="4" data-rev="0">
+  <h2 id="r4">ticker-news / power / delta</h2>
+  <p class="note">power desk in delta reports 248 units; initial entry.</p>
+  <span class="value">248</span>
+</article>
+<article class="record" data-seq="5" data-rev="0">
+  <h2 id="r5">ticker-news / insurance / north-basin</h2>
+  <p class="note">insurance desk in north-basin reports 285 units; initial entry.</p>
+  <span class="value">285</span>
+</article>
+<article class="record" data-seq="6" data-rev="0">
+  <h2 id="r6">ticker-news / grain / highland</h2>
+  <p class="note">grain desk in highland reports 322 units; initial entry.</p>
+  <span class="value">322</span>
+</article>
+</main>
+<footer>fictional demo feed</footer>
+</body>
+</html>
